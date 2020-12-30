@@ -1,13 +1,14 @@
 <template>
-  <button @click="createNew">Create new</button>
-
-  Existing:
-
-  <table>
+  <h4>Elements</h4>
+  <button @click="createNew" class="btn btn-success">Create new</button>
+  <br>
+  <br>
+  <table class="table table-darkQQQ table-striped table-primary">
     <tr v-for="item in items" v-bind:key="item">
-      <td @click="edit(item._id)"><button>Edit this item</button></td>
-      <td>{{ item.text }}</td>
+      <td @click="edit(item._id)"><button class="btn btn-primary">Edit this item</button></td>
+      <td class="">{{ item.text }}</td>
       <td>{{ item.createdAt }}</td>
+      <td @click="deleteItem(item)"><button class="btn btn-danger">DELETE THIS ITEM</button></td>
     </tr>
   </table>
 </template>
@@ -28,13 +29,19 @@ export default {
     this.loadItems()
   },
   methods: {
+    async deleteItem (instance) {
+      if (confirm('Are you sure you want to delete me?')) {
+        await this.$store.dispatch('demo/remove', instance._id)
+        this.loadItems()
+      }
+    },
     edit (id) {
       this.$router.push({ path: '/demo/' + id })
     },
     async createNew () {
       console.log('>>> this is new')
-      const res = await this.$store.dispatch('demo/create', { text: 'hi there' })
-      return res
+      await this.$store.dispatch('demo/create', { text: 'Hello World!' })
+      this.loadItems()
     },
     async loadItems () {
       try {
