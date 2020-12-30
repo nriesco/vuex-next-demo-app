@@ -28,7 +28,10 @@ export default {
   },
   methods: {
     async saveItem (instance) {
-      await this.$store.dispatch('demo/patch', [instance._id, instance])
+      // await this.$store.dispatch('demo/patch', [instance._id, instance])
+
+      // this won't work, save is not a function
+      instance.save()
       this.$router.push({ path: '/' })
     },
     async loadItems () {
