@@ -40,8 +40,9 @@ export default {
     },
     async createNew () {
       console.log('>>> this is new')
-      await this.$store.dispatch('demo/create', { text: 'Hello World!' })
-      this.loadItems()
+      const createResult = await this.$store.dispatch('demo/create', { text: 'Hello World!' })
+      console.log('>>> the element is created but the _id returned is not ok:', createResult)
+      // this.loadItems()
     },
     async loadItems () {
       try {
