@@ -1,32 +1,17 @@
 <template>
-  <h4>Editor</h4>
-
-  <div v-if="loading">loading ...</div>
-  <table class="table table-darkQQQ table-striped table-primary">
-    <tr v-for="item in items" v-bind:key="item">
-      <td @click="saveItem(item)"><button class="btn btn-primary">Save changes</button></td>
-      <td class=""><input class="form-control" v-model="item.text"></td>
-      <td><EditorDetails :data="item.addresses" /></td>
-      <td>{{ item.createdAt }}</td>
-    </tr>
-  </table>
+  <div v-for="d in data" v-bind:key="d._id">- {{d.address}} / {{d.number}}</div>
 </template>
 
 <script>
-
-import EditorDetails from './EditorDetails.vue'
 export default {
-  name: 'Editor',
-  props: {
-    msg: String
-  },
+  name: 'EditorDetails',
+  props: ['data'],
   data () {
     return {
       items: [],
       loading: false
     }
   },
-  components: { EditorDetails },
   mounted () {
     this.loadItems()
   },
